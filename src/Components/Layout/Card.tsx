@@ -4,11 +4,13 @@ import styled from '@emotion/styled'
 interface CardProps {
   maxWidth?: string
   maxHeight?: string
+  width?: string
 }
 
 interface StyledProps {
   maxWidth: string
   maxHeight: string
+  width: string
 }
 
 const StyledCard = styled.div<StyledProps>`
@@ -17,8 +19,8 @@ const StyledCard = styled.div<StyledProps>`
   box-sizing: border-box;
   box-shadow: var(--cardShadow);
   border-radius: 8px;
-  width: 100%;
-  height: 100%;
+  width: ${({ width }) => width};
+  height: auto;
   max-width: ${({ maxWidth }) => maxWidth};
   max-height: ${({ maxHeight }) => maxHeight};
 
@@ -32,9 +34,10 @@ export const Card: FC<CardProps> = ({
   children,
   maxHeight = '100%',
   maxWidth = '100%',
+  width = 'auto',
 }) => {
   return (
-    <StyledCard maxHeight={maxHeight} maxWidth={maxWidth}>
+    <StyledCard maxHeight={maxHeight} maxWidth={maxWidth} width={width}>
       {children}
     </StyledCard>
   )

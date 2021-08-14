@@ -24,7 +24,7 @@ const PageContainer = styled.div`
 `
 
 const LoginContainer = styled.div`
-  padding: 80px 54px 53px 94px;
+  padding: 80px 54px 94px 53px;
 `
 
 const Logo = styled.img`
@@ -52,7 +52,7 @@ export const Login: FC<LoginProps> = ({ setToken }) => {
   }
   return (
     <PageContainer>
-      <Card maxHeight="836px" maxWidth="607px">
+      <Card maxHeight="836px" maxWidth="607px" width="100%">
         <LoginContainer>
           <Logo src={logo} alt="Logo" />
           <form onSubmit={handleSubmit}>
