@@ -1,8 +1,9 @@
 import { FC, useState } from 'react'
 import { loginPOST } from '../../network/POST/login'
 import { AuthToken } from '../../hooks/useAuth'
-import styled from '@emotion/styled'
 import { registerPOST } from '../../network/POST/register'
+import { TextField } from '../../Components/Inputs/TextField'
+import styled from '@emotion/styled'
 interface LoginProps {
   setToken: (authToken: AuthToken) => void
 }
@@ -33,22 +34,10 @@ export const Login: FC<LoginProps> = ({ setToken }) => {
     <div>
       <form onSubmit={handleSubmit}>
         <NameContainer show={register}>
-          <input
-            placeholder="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
+          <TextField label="Name" value={name} onChange={setName} />
         </NameContainer>
-        <input
-          placeholder="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          placeholder="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+        <TextField label="Email" value={email} onChange={setEmail} />
+        <TextField label="Password" value={password} onChange={setPassword} />
         <button type="submit">{!register ? 'Login' : 'Register'}</button>
         <button type="button" onClick={() => setRegister(!register)}>
           {!register ? 'Register' : 'Back to Login'}
