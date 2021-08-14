@@ -50,7 +50,7 @@ export const Login: FC<LoginProps> = ({ setToken }) => {
           onChange={(e) => setPassword(e.target.value)}
         />
         <button type="submit">{!register ? 'Login' : 'Register'}</button>
-        <button type="button" onClick={() => setRegister(!!register)}>
+        <button type="button" onClick={() => setRegister(!register)}>
           {!register ? 'Register' : 'Back to Login'}
         </button>
       </form>
