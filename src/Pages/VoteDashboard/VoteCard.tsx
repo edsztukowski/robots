@@ -10,11 +10,14 @@ interface VoteCardProps {
   id: string
   hasVoted: boolean
   handleVote: (id: string) => void
+  disabled: boolean
   name: string
   url: string
 }
 
-const CardWrapper = styled.div`
+const CardWrapper = styled.div<{ disabled: boolean }>`
+  opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
+  pointer-events: ${({ disabled }) => (disabled ? 'none' : 'initial')};
   max-width: 397px;
   max-height: 519px;
   Button {
@@ -39,10 +42,11 @@ export const VoteCard: FC<VoteCardProps> = ({
   name,
   hasVoted,
   url,
+  disabled,
   handleVote,
 }) => {
   return (
-    <CardWrapper>
+    <CardWrapper disabled={disabled}>
       <Card>
         <CardContent>
           <H3
