@@ -4,6 +4,7 @@ import styled from '@emotion/styled'
 interface ButtonProps {
   btnType?: 'primary' | 'secondary'
   type?: 'button' | 'reset' | 'submit'
+  disabled?: boolean
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onClick?: () => any
 }
@@ -14,7 +15,10 @@ const StyledButton = styled.button<{ btnType: 'primary' | 'secondary' }>`
   align-items: center;
   justify-content: center;
   width: 100%;
+  font-size: 18px;
+  line-height: 21px;
   border-radius: 8px;
+  font-weight: bold;
   background: ${({ btnType }) =>
     btnType === 'primary' ? 'var(--gray3)' : 'var(--white)'};
   color: ${({ btnType }) =>
@@ -25,6 +29,7 @@ const StyledButton = styled.button<{ btnType: 'primary' | 'secondary' }>`
       : '2px solid var(--gray3)'};
 
   &:hover {
+    cursor: pointer;
     background: ${({ btnType }) =>
       btnType === 'primary' ? 'var(--gray2)' : 'var(--gray0)'};
     color: ${({ btnType }) =>
@@ -52,10 +57,16 @@ export const Button: FC<ButtonProps> = ({
   btnType = 'primary',
   type,
   children,
+  disabled,
   onClick,
 }) => {
   return (
-    <StyledButton type={type} btnType={btnType} onClick={onClick}>
+    <StyledButton
+      disabled={disabled}
+      type={type}
+      btnType={btnType}
+      onClick={onClick}
+    >
       {children}
     </StyledButton>
   )

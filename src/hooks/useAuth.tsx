@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { getSession } from '../network/GET/getSession'
 import { isAdmin } from '../utils/isAdmin'
 export interface AuthToken {
   token: string
@@ -7,6 +8,7 @@ export interface AuthToken {
 interface useTokenReturnType {
   setToken: (authToken: AuthToken) => void
   userType: 'admin' | 'user'
+  userId: string
   token: string | undefined
 }
 export const useAuth = (): useTokenReturnType => {
@@ -17,8 +19,9 @@ export const useAuth = (): useTokenReturnType => {
       return authToken?.token
     }
   }
-  const [token, setToken] = useState(getToken())
+  const [token, setToken] = useState<undefined | string>(getToken())
   const [userType, setUserType] = useState<'admin' | 'user'>('user')
+  const [userId, setUserId] = useState('')
 
   const saveToken = (userToken: AuthToken) => {
     localStorage.setItem('token', JSON.stringify(userToken))
@@ -26,11 +29,13 @@ export const useAuth = (): useTokenReturnType => {
   }
 
   useEffect(() => {
-    const checkAdmin = async () => {
-      const adminUser = await isAdmin()
-      setUserType(adminUser ? 'admin' : 'user')
-    }
     if (token) {
+      const checkAdmin = async () => {
+        const sessionData = await getSession()
+        const adminUser = isAdmin(sessionData.email)
+        setUserId(sessionData.id)
+        setUserType(adminUser ? 'admin' : 'user')
+      }
       checkAdmin()
     }
   }, [token])
@@ -38,6 +43,7 @@ export const useAuth = (): useTokenReturnType => {
   return {
     setToken: saveToken,
     userType,
+    userId,
     token,
   }
 }
