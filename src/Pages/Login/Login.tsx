@@ -4,14 +4,18 @@ import { AuthToken } from '../../hooks/useAuth'
 import { registerPOST } from '../../network/POST/register'
 import { TextField } from '../../Components/Inputs/TextField'
 import { Card } from '../../Components/Layout/Card'
+import { Button } from '../../Components/Button/Button'
 import logo from '../../assets/images/logo.png'
 import styled from '@emotion/styled'
+
 interface LoginProps {
   setToken: (authToken: AuthToken) => void
 }
 
 const NameContainer = styled.div<{ show: boolean }>`
-  display: ${({ show }) => (show ? 'block' : 'none')};
+  height: ${({ show }) => (show ? '64px' : '0px')};
+  transition: all 0.3s ease-in-out;
+  margin-bottom: ${({ show }) => (show ? '44px' : '0px')};
 `
 
 const PageContainer = styled.div`
@@ -30,6 +34,10 @@ const LoginContainer = styled.div`
 const Logo = styled.img`
   margin: 0 auto 84px;
   display: flex;
+`
+
+const ButtonWrap = styled.div`
+  margin-bottom: 16px;
 `
 
 export const Login: FC<LoginProps> = ({ setToken }) => {
@@ -57,7 +65,12 @@ export const Login: FC<LoginProps> = ({ setToken }) => {
           <Logo src={logo} alt="Logo" />
           <form onSubmit={handleSubmit}>
             <NameContainer show={register}>
-              <TextField label="Name" value={name} onChange={setName} />
+              <TextField
+                aria-hidden={!register}
+                label="Name"
+                value={name}
+                onChange={setName}
+              />
             </NameContainer>
             <TextField label="Email" value={email} onChange={setEmail} />
             <TextField
@@ -65,10 +78,19 @@ export const Login: FC<LoginProps> = ({ setToken }) => {
               value={password}
               onChange={setPassword}
             />
-            <button type="submit">{!register ? 'Login' : 'Register'}</button>
-            <button type="button" onClick={() => setRegister(!register)}>
+            <ButtonWrap>
+              <Button type="submit" btnType="primary">
+                {!register ? 'Login' : 'Register'}
+              </Button>
+            </ButtonWrap>
+
+            <Button
+              type="button"
+              btnType="secondary"
+              onClick={() => setRegister(!register)}
+            >
               {!register ? 'Register' : 'Back to Login'}
-            </button>
+            </Button>
           </form>
         </LoginContainer>
       </Card>
