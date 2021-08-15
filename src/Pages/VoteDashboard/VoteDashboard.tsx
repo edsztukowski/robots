@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { getRobots, SuccessResp } from '../../network/GET/getRobots'
 import { PageWrapper } from '../../Components/Layout/PageWrapper'
 import { VoteCard } from './VoteCard'
@@ -48,25 +48,32 @@ export const VoteDashboard: FC = () => {
 
   const handleVote = (robotId: string) => {
     setProcessing(true)
-    myVotes.map((vote) => {
-      return deleteVote(vote.id).then(() => {
-        return votePOST(robotId).then(() => {
-          getVotes()
-            .then((res) => {
-              getMyVotes(res)
-            })
-            .then(() => {
-              setProcessing(false)
-            })
+    if (myVotes.length > 0) {
+      myVotes.map((vote) => {
+        return deleteVote(vote.id).then(() => {
+          const filteredVotes = myVotes.filter(
+            (myVote) => myVote.id !== vote.id
+          )
+          return votePOST(robotId).then((res) => {
+            setMyVotes([...filteredVotes, res])
+            setProcessing(false)
+          })
         })
       })
-    })
+    } else {
+      votePOST(robotId).then((res) => {
+        setMyVotes([res])
+        setProcessing(false)
+      })
+    }
   }
 
   return (
     <PageWrapper>
       {robots.length === 0 ? (
-        <div>test</div>
+        <RobotsWrapper>
+          <Loading />
+        </RobotsWrapper>
       ) : (
         robots.length > 0 && (
           <RobotsWrapper>
@@ -74,19 +81,18 @@ export const VoteDashboard: FC = () => {
               const hasVoted =
                 myVotes.filter((vote) => vote.robot === robot.id).length > 0
               return (
-                <>
+                <React.Fragment key={robot.id}>
                   {processing && <Loading />}
 
                   <VoteCard
                     disabled={processing}
                     hasVoted={hasVoted}
                     handleVote={handleVote}
-                    key={robot.id}
                     id={robot.id}
                     name={robot.name}
                     url={robot.url}
                   />
-                </>
+                </React.Fragment>
               )
             })}
           </RobotsWrapper>
