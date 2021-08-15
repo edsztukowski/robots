@@ -6,6 +6,7 @@ import {
   Redirect,
 } from 'react-router-dom'
 import { Login } from './Pages/Login/Login'
+import { Header } from './Components/Header/Header'
 import { AdminDash } from './Pages/Admin/Admin'
 import { useAuth } from './hooks/useAuth'
 import { VoteDashboard } from './Pages/VoteDashboard/VoteDashboard'
@@ -19,16 +20,33 @@ export const App: FC = () => {
     <Router>
       <Switch>
         <Route exact path="/">
-          {!token ? <Login setToken={setToken} /> : <VoteDashboard />}
+          {!token ? (
+            <Login setToken={setToken} />
+          ) : (
+            <>
+              <Header />
+              <VoteDashboard />
+            </>
+          )}
         </Route>
         <Route exact path="/results">
-          {!token ? <Login setToken={setToken} /> : <Results />}
+          {!token ? (
+            <Login setToken={setToken} />
+          ) : (
+            <>
+              <Header />
+              <Results />
+            </>
+          )}
         </Route>
         <Route exact path="/admin">
           {!token ? (
             <Login setToken={setToken} />
           ) : userType === 'admin' ? (
-            <AdminDash />
+            <>
+              <Header />
+              <AdminDash />
+            </>
           ) : (
             <Redirect to="/" />
           )}
