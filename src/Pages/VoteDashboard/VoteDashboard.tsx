@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react'
 import { getRobots, SuccessResp } from '../../network/GET/getRobots'
 import { PageWrapper } from '../../Components/Layout/PageWrapper'
-import { VoteCard } from './VoteCard'
+import { RobotCard } from '../../Components/RobotCard/RobotCard'
 import { getVotes } from '../../network/GET/getVotes'
 import { votePOST } from '../../network/POST/vote'
 import { useAuth } from '../../hooks/useAuth'
@@ -24,7 +24,6 @@ export const VoteDashboard: FC = () => {
   const [robots, setRobots] = useState<SuccessResp[] | []>([])
   const [myVotes, setMyVotes] = useState<myVotes[]>([])
   const [processing, setProcessing] = useState(false)
-
   const { userId } = useAuth()
 
   useEffect(() => {
@@ -84,10 +83,11 @@ export const VoteDashboard: FC = () => {
                 <React.Fragment key={robot.id}>
                   {processing && <Loading />}
 
-                  <VoteCard
+                  <RobotCard
+                    view="vote"
                     disabled={processing}
                     hasVoted={hasVoted}
-                    handleVote={handleVote}
+                    handleClick={handleVote}
                     id={robot.id}
                     name={robot.name}
                     url={robot.url}

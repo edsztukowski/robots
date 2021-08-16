@@ -6,7 +6,7 @@ interface ButtonProps {
   type?: 'button' | 'reset' | 'submit'
   disabled?: boolean
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onClick?: () => any
+  onClick?: any
 }
 
 const StyledButton = styled.button<{ btnType: 'primary' | 'secondary' }>`

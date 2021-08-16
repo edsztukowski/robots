@@ -1,15 +1,16 @@
 import { FC } from 'react'
-import { Card } from '../../Components/Layout/Card'
-import { Button } from '../../Components/Button/Button'
-import { H3 } from '../../Components/Typography/Typography'
+import { Card } from '../Layout/Card'
+import { Button } from '../Button/Button'
+import { H3 } from '../Typography/Typography'
 import { getCSSVal } from '../../utils/getCSSVal'
 
 import styled from '@emotion/styled'
 
-interface VoteCardProps {
+interface RobotCardProps {
   id: string
-  hasVoted: boolean
-  handleVote: (id: string) => void
+  view: 'vote' | 'admin' | 'results'
+  hasVoted?: boolean
+  handleClick: (id: string) => void
   disabled: boolean
   name: string
   url: string
@@ -37,13 +38,14 @@ const CardContent = styled.div`
   padding-bottom: 40px;
 `
 
-export const VoteCard: FC<VoteCardProps> = ({
+export const RobotCard: FC<RobotCardProps> = ({
   id,
   name,
   hasVoted,
+  view,
   url,
   disabled,
-  handleVote,
+  handleClick,
 }) => {
   return (
     <CardWrapper disabled={disabled}>
@@ -56,9 +58,14 @@ export const VoteCard: FC<VoteCardProps> = ({
             {name}
           </H3>
           <img alt={name} src={url} />
-          <Button disabled={hasVoted} onClick={() => handleVote(id)}>
-            Vote
-          </Button>
+          {view === 'admin' && (
+            <Button onClick={() => handleClick(id)}>Delete</Button>
+          )}
+          {view === 'vote' && (
+            <Button disabled={hasVoted} onClick={() => handleClick(id)}>
+              {hasVoted ? 'Vote Cast' : 'Vote'}
+            </Button>
+          )}
         </CardContent>
       </Card>
     </CardWrapper>
