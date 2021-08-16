@@ -6,6 +6,7 @@ import { RobotCard } from '../../Components/RobotCard/RobotCard'
 import { Loading } from '../../Components/Layout/Loading'
 import styled from '@emotion/styled'
 import { AddCard } from './AddCard'
+import { deleteRobot } from '../../network/DELETE/deleteRobot'
 
 const RobotsWrapper = styled.div`
   display: flex;
@@ -23,8 +24,14 @@ export const AdminDash: FC = () => {
     })
   }, [])
 
-  const handleDelete = () => {
-    console.log('delete')
+  const handleDelete = (id: string) => {
+    deleteRobot(id)
+      .then(() => {
+        setRobots(robots.filter((robot) => robot.id !== id))
+      })
+      .catch(() => {
+        console.log('error occurred')
+      })
   }
 
   const handleAdd = (name: string, image: File | null) => {

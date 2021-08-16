@@ -59,7 +59,9 @@ export const RobotCard: FC<RobotCardProps> = ({
           </H3>
           <img alt={name} src={url} />
           {view === 'admin' && (
-            <Button onClick={() => handleClick(id)}>Delete</Button>
+            <Button btnType="secondary" onClick={() => handleClick(id)}>
+              Delete
+            </Button>
           )}
           {view === 'vote' && (
             <Button disabled={hasVoted} onClick={() => handleClick(id)}>
