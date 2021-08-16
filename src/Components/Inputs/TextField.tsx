@@ -12,6 +12,7 @@ const TextContainer = styled.div`
   position: relative;
   background: var(--white);
   height: 64px;
+  width: 100%;
   border: 1px solid var(--gray1);
   box-sizing: border-box;
   border-radius: 8px;

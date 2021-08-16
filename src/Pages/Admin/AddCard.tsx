@@ -19,6 +19,7 @@ const CardWrapper = styled.div<{ disabled?: boolean }>`
   pointer-events: ${({ disabled }) => (disabled ? 'none' : 'initial')};
   max-width: 397px;
   max-height: 519px;
+  width: 100%;
   Button {
     max-width: 149px;
   }
@@ -33,13 +34,15 @@ const CardContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
+  max-width: 397px;
   padding-bottom: 40px;
-  img {
-    max-width: 100%;
-    max-height: 240px;
-    margin-bottom: 36px;
-  }
+  padding: 39px 24px 27px;
+`
+
+const UploadImage = styled.img`
+  max-width: 100%;
+  max-height: 240px;
+  margin-bottom: 36px;
 `
 
 export const AddCard: FC<AddCardProps> = ({
@@ -74,7 +77,7 @@ export const AddCard: FC<AddCardProps> = ({
           <H3>{label}</H3>
           <TextField value={name} onChange={setName} label="Name" />
           {image ? (
-            <img alt={name} src={image} />
+            <UploadImage alt={name} src={image} />
           ) : (
             <FileDrop setFileUpload={setFileUpload} setImage={setImage} />
           )}

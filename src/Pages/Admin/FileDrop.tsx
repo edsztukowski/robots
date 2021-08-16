@@ -1,6 +1,6 @@
 import { FC, useCallback } from 'react'
 import { useDropzone } from 'react-dropzone'
-
+import uploadIcon from '../../assets/icons/upload.png'
 import styled from '@emotion/styled'
 
 interface FileDropProps {
@@ -8,11 +8,30 @@ interface FileDropProps {
   setImage: React.Dispatch<React.SetStateAction<string | null>>
 }
 const DropContainer = styled.div`
-  width: 349px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
   height: 208px;
   background: var(--gray4);
   border: 2px dashed var(--gray2);
   border-radius: 8px;
+`
+
+const MessageContainer = styled.div`
+  color: var(--gray3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  img {
+    margin-bottom: 20px;
+  }
+`
+
+const UploadIcon = styled.img`
+  margin-bottom: 21px;
 `
 
 export const FileDrop: FC<FileDropProps> = ({ setFileUpload, setImage }) => {
@@ -41,9 +60,12 @@ export const FileDrop: FC<FileDropProps> = ({ setFileUpload, setImage }) => {
         accept="image/png, image/gif, image/jpeg"
       />
       {isDragActive ? (
-        <p>Drop the files here ...</p>
+        <MessageContainer>Drop!</MessageContainer>
       ) : (
-        <p>Drag 'n' drop some files here, or click to select files</p>
+        <MessageContainer>
+          <UploadIcon src={uploadIcon} alt="upload" />
+          <p>Select image to upload</p>
+        </MessageContainer>
       )}
     </DropContainer>
   )
