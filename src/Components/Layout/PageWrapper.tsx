@@ -2,7 +2,6 @@ import { FC } from 'react'
 import styled from '@emotion/styled'
 
 const StyledWrapper = styled.div`
-  width: 100%;
   background: var(--gray0);
   height: calc(100% - 144px);
   padding: 63px 8px 0px;

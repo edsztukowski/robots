@@ -6,6 +6,7 @@ import { Button } from '../../Components/Button/Button'
 import styled from '@emotion/styled'
 import { TextField } from '../../Components/Inputs/TextField'
 import { FileDrop } from './FileDrop'
+import { CardWrapper } from '../../Components/Layout/CardWrapper'
 
 interface AddCardProps {
   disabled?: boolean
@@ -14,29 +15,11 @@ interface AddCardProps {
   handleAdd: (name: string, image: File | null) => void
 }
 
-const CardWrapper = styled.div<{ disabled?: boolean }>`
-  opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
-  pointer-events: ${({ disabled }) => (disabled ? 'none' : 'initial')};
-  max-width: 397px;
-  max-height: 519px;
-  width: 100%;
-  Button {
-    max-width: 149px;
-  }
-  img {
-    max-width: 100%;
-    max-height: 321px;
-    margin-bottom: 36px;
-  }
-`
-
 const CardContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 397px;
-  padding-bottom: 40px;
-  padding: 39px 24px 27px;
+  padding: 0 23px 37px;
 `
 
 const UploadImage = styled.img`

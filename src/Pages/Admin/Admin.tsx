@@ -4,14 +4,10 @@ import { addRobotPOST } from '../../network/POST/addRobot'
 import { PageWrapper } from '../../Components/Layout/PageWrapper'
 import { RobotCard } from '../../Components/RobotCard/RobotCard'
 import { Loading } from '../../Components/Layout/Loading'
-import styled from '@emotion/styled'
+
 import { AddCard } from './AddCard'
 import { deleteRobot } from '../../network/DELETE/deleteRobot'
-
-const RobotsWrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-`
+import { CardsWrapper } from '../../Components/Layout/CardsWrapper'
 
 export const AdminDash: FC = () => {
   const [robots, setRobots] = useState<SuccessResp[] | []>([])
@@ -51,7 +47,7 @@ export const AdminDash: FC = () => {
 
   return (
     <PageWrapper>
-      <RobotsWrapper>
+      <CardsWrapper>
         <AddCard label="Add Robots" handleAdd={handleAdd} resetAdd={resetAdd} />
         {robots.map((robot) => {
           return (
@@ -68,7 +64,7 @@ export const AdminDash: FC = () => {
             </React.Fragment>
           )
         })}
-      </RobotsWrapper>
+      </CardsWrapper>
       )
     </PageWrapper>
   )

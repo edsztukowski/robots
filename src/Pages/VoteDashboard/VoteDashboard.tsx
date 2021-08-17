@@ -5,7 +5,7 @@ import { RobotCard } from '../../Components/RobotCard/RobotCard'
 import { getVotes } from '../../network/GET/getVotes'
 import { votePOST } from '../../network/POST/vote'
 import { useAuth } from '../../hooks/useAuth'
-import styled from '@emotion/styled'
+import { CardsWrapper } from '../../Components/Layout/CardsWrapper'
 import { deleteVote } from '../../network/DELETE/deleteVote'
 import { Loading } from '../../Components/Layout/Loading'
 
@@ -14,11 +14,6 @@ interface myVotes {
   robot: string
   user: string
 }
-
-const RobotsWrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-`
 
 export const VoteDashboard: FC = () => {
   const [robots, setRobots] = useState<SuccessResp[] | []>([])
@@ -70,12 +65,12 @@ export const VoteDashboard: FC = () => {
   return (
     <PageWrapper>
       {robots.length === 0 ? (
-        <RobotsWrapper>
+        <CardsWrapper>
           <Loading />
-        </RobotsWrapper>
+        </CardsWrapper>
       ) : (
         robots.length > 0 && (
-          <RobotsWrapper>
+          <CardsWrapper>
             {robots.map((robot) => {
               const hasVoted =
                 myVotes.filter((vote) => vote.robot === robot.id).length > 0
@@ -95,7 +90,7 @@ export const VoteDashboard: FC = () => {
                 </React.Fragment>
               )
             })}
-          </RobotsWrapper>
+          </CardsWrapper>
         )
       )}
     </PageWrapper>

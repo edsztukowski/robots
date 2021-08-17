@@ -3,7 +3,7 @@ import { Card } from '../Layout/Card'
 import { Button } from '../Button/Button'
 import { H3 } from '../Typography/Typography'
 import { getCSSVal } from '../../utils/getCSSVal'
-
+import { CardWrapper } from '../Layout/CardWrapper'
 import styled from '@emotion/styled'
 
 interface RobotCardProps {
@@ -16,26 +16,11 @@ interface RobotCardProps {
   url: string
 }
 
-const CardWrapper = styled.div<{ disabled: boolean }>`
-  opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
-  pointer-events: ${({ disabled }) => (disabled ? 'none' : 'initial')};
-  max-width: 397px;
-  max-height: 519px;
-  Button {
-    max-width: 149px;
-  }
-  img {
-    max-width: 100%;
-    max-height: 321px;
-    margin-bottom: 36px;
-  }
-`
-
 const CardContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-bottom: 40px;
+  padding: 0 23px 37px;
 `
 
 export const RobotCard: FC<RobotCardProps> = ({

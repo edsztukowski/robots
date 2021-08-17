@@ -16,6 +16,7 @@ const DropContainer = styled.div`
   background: var(--gray4);
   border: 2px dashed var(--gray2);
   border-radius: 8px;
+  margin-bottom: 36px;
 `
 
 const MessageContainer = styled.div`
