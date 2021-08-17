@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { getToken } from '../getToken'
-export interface SuccessResp {
+export interface GetRobotsRes {
   id: string
   name: string
   url: string
@@ -10,13 +10,13 @@ const headers = {
   Authorization: `Bearer ${getToken()}`,
 }
 
-export const getRobots = (): Promise<SuccessResp[]> => {
+export const getRobots = (): Promise<GetRobotsRes[]> => {
   return axios
     .get(`${process.env.REACT_APP_BASE_URL}/robots`, {
       headers,
     })
     .then((res) => {
-      return res.data as SuccessResp[]
+      return res.data as GetRobotsRes[]
     })
     .catch((err) => {
       throw new Error(err.message as string)

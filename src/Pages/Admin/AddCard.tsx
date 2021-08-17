@@ -7,6 +7,8 @@ import styled from '@emotion/styled'
 import { TextField } from '../../Components/Inputs/TextField'
 import { FileDrop } from './FileDrop'
 import { CardWrapper } from '../../Components/Layout/CardWrapper'
+import { LinkButton } from '../../Components/Button/LinkButton'
+import { FlexRow } from '../../Components/Layout/Flex'
 
 interface AddCardProps {
   disabled?: boolean
@@ -20,6 +22,10 @@ const CardContent = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 0 23px 37px;
+
+  Button {
+    max-width: 229px;
+  }
 `
 
 const UploadImage = styled.img`
@@ -58,20 +64,28 @@ export const AddCard: FC<AddCardProps> = ({
       <Card width="100%">
         <CardContent>
           <H3>{label}</H3>
-          <TextField value={name} onChange={setName} label="Name" />
+          <TextField
+            value={name}
+            onChange={setName}
+            label="Name"
+            margin={'30px 0 24px 0'}
+          />
           {image ? (
             <UploadImage alt={name} src={image} />
           ) : (
             <FileDrop setFileUpload={setFileUpload} setImage={setImage} />
           )}
-
-          <Button
-            onClick={() => handleAdd(name, fileUpload)}
-            disabled={disableAdd}
-            type="submit"
-          >
-            {label}
-          </Button>
+          <FlexRow justifyContent="space-between">
+            <LinkButton>Clear</LinkButton>
+            <Button
+              width="229px"
+              onClick={() => handleAdd(name, fileUpload)}
+              disabled={disableAdd}
+              type="submit"
+            >
+              {label}
+            </Button>
+          </FlexRow>
         </CardContent>
       </Card>
     </CardWrapper>

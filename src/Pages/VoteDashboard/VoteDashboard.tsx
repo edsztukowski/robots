@@ -1,23 +1,18 @@
 import React, { FC, useEffect, useState } from 'react'
-import { getRobots, SuccessResp } from '../../network/GET/getRobots'
+import { getRobots, GetRobotsRes } from '../../network/GET/getRobots'
 import { PageWrapper } from '../../Components/Layout/PageWrapper'
 import { RobotCard } from '../../Components/RobotCard/RobotCard'
-import { getVotes } from '../../network/GET/getVotes'
+import { getVotes, GetVotesRes } from '../../network/GET/getVotes'
 import { votePOST } from '../../network/POST/vote'
 import { useAuth } from '../../hooks/useAuth'
 import { CardsWrapper } from '../../Components/Layout/CardsWrapper'
 import { deleteVote } from '../../network/DELETE/deleteVote'
 import { Loading } from '../../Components/Layout/Loading'
-
-interface myVotes {
-  id: string
-  robot: string
-  user: string
-}
+import { H1 } from '../../Components/Typography/Typography'
 
 export const VoteDashboard: FC = () => {
-  const [robots, setRobots] = useState<SuccessResp[] | []>([])
-  const [myVotes, setMyVotes] = useState<myVotes[]>([])
+  const [robots, setRobots] = useState<GetRobotsRes[] | []>([])
+  const [myVotes, setMyVotes] = useState<GetVotesRes[]>([])
   const [processing, setProcessing] = useState(false)
   const { userId } = useAuth()
 
@@ -33,7 +28,7 @@ export const VoteDashboard: FC = () => {
     })
   }, [userId])
 
-  const getMyVotes = (allVotes: myVotes[]) => {
+  const getMyVotes = (allVotes: GetVotesRes[]) => {
     const votes = allVotes.filter((vote) => {
       return vote.user === userId
     })
@@ -64,6 +59,7 @@ export const VoteDashboard: FC = () => {
 
   return (
     <PageWrapper>
+      <H1>Robots</H1>
       {robots.length === 0 ? (
         <CardsWrapper>
           <Loading />

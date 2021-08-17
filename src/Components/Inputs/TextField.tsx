@@ -6,9 +6,10 @@ interface TextProps {
   label: string
   onChange: React.Dispatch<React.SetStateAction<string>>
   placeholder?: string
+  margin?: string
 }
 
-const TextContainer = styled.div`
+const TextContainer = styled.div<{ margin?: string }>`
   position: relative;
   background: var(--white);
   height: 64px;
@@ -16,7 +17,7 @@ const TextContainer = styled.div`
   border: 1px solid var(--gray1);
   box-sizing: border-box;
   border-radius: 8px;
-  margin-bottom: 44px;
+  margin: ${({ margin }) => margin};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -55,9 +56,10 @@ export const TextField: FC<TextProps> = ({
   onChange,
   label,
   placeholder,
+  margin = '0 0 44px 0',
 }) => {
   return (
-    <TextContainer>
+    <TextContainer margin={margin}>
       <StyledLabel>{label}</StyledLabel>
       <StyledInput
         placeholder={placeholder}

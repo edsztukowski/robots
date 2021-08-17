@@ -1,20 +1,26 @@
 import { FC } from 'react'
 import styled from '@emotion/styled'
 
-interface ButtonProps {
+export interface ButtonProps {
   btnType?: 'primary' | 'secondary'
+  width?: string
   type?: 'button' | 'reset' | 'submit'
   disabled?: boolean
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onClick?: any
 }
 
-const StyledButton = styled.button<{ btnType: 'primary' | 'secondary' }>`
+interface StyledProps {
+  btnType: 'primary' | 'secondary'
+  width: string
+}
+
+const StyledButton = styled.button<StyledProps>`
   height: 53px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  width: ${({ width }) => width};
   font-size: 18px;
   line-height: 21px;
   border-radius: 8px;
@@ -49,7 +55,8 @@ const StyledButton = styled.button<{ btnType: 'primary' | 'secondary' }>`
     opacity: 0.4;
     background: var(--gray1);
     color: var(--gray3);
-    border: '2px solid var(--gray1)';
+    border: none;
+    cursor: not-allowed;
   }
 `
 
@@ -59,11 +66,13 @@ export const Button: FC<ButtonProps> = ({
   children,
   disabled,
   onClick,
+  width = '100%',
 }) => {
   return (
     <StyledButton
       disabled={disabled}
       type={type}
+      width={width}
       btnType={btnType}
       onClick={onClick}
     >
