@@ -25,6 +25,12 @@ const CardContent = styled.div`
   padding: 0 23px 37px;
 `
 
+const IMG = styled.img<{ marginBottom: string }>`
+  max-width: 100%;
+  max-height: 321px;
+  margin-bottom: ${({ marginBottom }) => marginBottom};
+`
+
 export const RobotCard: FC<RobotCardProps> = ({
   id,
   name,
@@ -35,7 +41,6 @@ export const RobotCard: FC<RobotCardProps> = ({
   handleClick,
   resultsData,
 }) => {
-  console.log('results data is ', resultsData)
   return (
     <CardWrapper disabled={disabled}>
       <Card>
@@ -46,7 +51,11 @@ export const RobotCard: FC<RobotCardProps> = ({
           >
             {name}
           </H3>
-          <img alt={name} src={url} />
+          <IMG
+            marginBottom={view === 'results' ? '11px' : '36px'}
+            alt={name}
+            src={url}
+          />
           {view === 'admin' && handleClick && (
             <Button btnType="secondary" onClick={() => handleClick(id)}>
               Delete

@@ -12,9 +12,4 @@ export const CardWrapper = styled.div<{ disabled?: boolean }>`
   Button {
     max-width: 149px;
   }
-  img {
-    max-width: 100%;
-    max-height: 321px;
-    margin-bottom: 36px;
-  }
 `
