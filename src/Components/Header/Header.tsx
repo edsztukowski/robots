@@ -2,6 +2,7 @@ import { FC, useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useAuth } from '../../hooks/useAuth'
 import { MobileMenu } from './MobileMenu'
+import { HamburgerMenu } from './HamburgerMenu'
 import logo from '../../assets/images/logo.png'
 import styled from '@emotion/styled'
 
@@ -77,16 +78,6 @@ const ButtonLink = styled.button`
   }
 `
 
-const HamburgerMenu = styled.div`
-  height: 30px;
-  width: 30px;
-  background: #333;
-  display: none;
-  @media screen and (max-width: 894px) {
-    display: block;
-  }
-`
-
 export const Header: FC = () => {
   const { userType } = useAuth()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -116,13 +107,12 @@ export const Header: FC = () => {
           <SecondaryLink to="/admin">Admin</SecondaryLink>
         )}
         <ButtonLink>Log out</ButtonLink>
-        <HamburgerMenu onClick={() => setMobileMenuOpen(true)} />
+        <HamburgerMenu
+          open={mobileMenuOpen}
+          handleClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        />
       </NavContainer>
-      <MobileMenu
-        currentPage={location.pathname}
-        open={mobileMenuOpen}
-        setOpen={setMobileMenuOpen}
-      />
+      <MobileMenu currentPage={location.pathname} open={mobileMenuOpen} />
     </HeaderWrapper>
   )
 }

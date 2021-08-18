@@ -27,23 +27,16 @@ const StyledLink = styled(Link)<{ color: string }>`
   text-decoration: none;
 `
 
-const CloseButton = styled.div`
-  width: 10px;
-  height: 10px;
-  background: white;
-`
 export const MobileMenu: FC<{
   open: boolean
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>
   currentPage: string
-}> = ({ open, setOpen, currentPage }) => {
+}> = ({ open, currentPage }) => {
   const gray = getCSSVal('--gray1')
   const activeLink = getCSSVal('--white')
 
   return (
     <>
       <StyledMenu open={open}>
-        <CloseButton onClick={() => setOpen(false)} />
         <H2>
           <StyledLink color={currentPage === '/' ? activeLink : gray} to="/">
             Robots
