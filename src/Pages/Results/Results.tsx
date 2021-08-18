@@ -19,8 +19,8 @@ export const Results: FC = () => {
       setRobots(res)
     })
     getVotes().then((res) => {
-      setVoteData(res)
       setTotalVotes(res.length)
+      setVoteData(res)
       setProcessing(false)
     })
   }, [])

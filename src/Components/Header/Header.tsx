@@ -12,6 +12,9 @@ const HeaderWrapper = styled.div`
   padding: 24px 40px;
   max-width: 1240px;
   margin: 0 auto;
+  @media screen and (max-width: 1317px) {
+    max-width: 826px;
+  }
 `
 
 const Logo = styled.img`
@@ -30,9 +33,39 @@ const NavContainer = styled.div<{ direction: 'start' | 'end' }>`
     margin-right: ${({ direction }) => (direction === 'start' ? 0 : '40px')};
   }
 `
-const StyledLink = styled(Link)``
 
-const ButtonLink = styled.button``
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  &:active {
+    text-decoration: underline;
+  }
+`
+
+const PrimaryLink = styled(StyledLink)`
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--gray3);
+`
+
+const SecondaryLink = styled(StyledLink)`
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--gray2);
+`
+
+const ButtonLink = styled.button`
+  font-size: 16px;
+  font-weight: 400;
+  background: none;
+  border: none;
+  color: var(--gray2);
+  &:hover {
+    cursor: pointer;
+  }
+  &:active {
+    text-decoration: underline;
+  }
+`
 
 export const Header: FC = () => {
   const { userType } = useAuth()
@@ -40,11 +73,13 @@ export const Header: FC = () => {
     <HeaderWrapper>
       <NavContainer direction="start">
         <Logo src={logo} alt="Back to home" />
-        <StyledLink to="/">Robots</StyledLink>
-        <StyledLink to="/results">Results</StyledLink>
+        <PrimaryLink to="/">Robots</PrimaryLink>
+        <PrimaryLink to="/results">Results</PrimaryLink>
       </NavContainer>
       <NavContainer direction="end">
-        {userType === 'admin' && <StyledLink to="/admin">Admin</StyledLink>}
+        {userType === 'admin' && (
+          <SecondaryLink to="/admin">Admin</SecondaryLink>
+        )}
         <ButtonLink>Log out</ButtonLink>
       </NavContainer>
     </HeaderWrapper>

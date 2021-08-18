@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react'
 import { getSession } from '../network/GET/getSession'
 import { isAdmin } from '../utils/isAdmin'
-export interface AuthToken {
-  token: string
-}
+// export interface AuthToken {
+//   token: string
+// }
+
+export type AuthToken = string
 
 interface useTokenReturnType {
   setToken: (authToken: AuthToken) => void
@@ -13,10 +15,10 @@ interface useTokenReturnType {
 }
 export const useAuth = (): useTokenReturnType => {
   const getToken = () => {
+    console.log('use auth fires')
     const tokenString = localStorage.getItem('token')
     if (tokenString) {
-      const authToken: AuthToken = JSON.parse(tokenString)
-      return authToken?.token
+      return tokenString
     }
   }
   const [token, setToken] = useState<undefined | string>(getToken())
@@ -24,8 +26,10 @@ export const useAuth = (): useTokenReturnType => {
   const [userId, setUserId] = useState('')
 
   const saveToken = (userToken: AuthToken) => {
-    localStorage.setItem('token', JSON.stringify(userToken))
-    setToken(userToken.token)
+    if (userToken) {
+      localStorage.setItem('token', userToken)
+      setToken(userToken)
+    }
   }
 
   useEffect(() => {

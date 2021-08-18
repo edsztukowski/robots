@@ -5,12 +5,13 @@ export interface SuccessResp {
   robot: string
   user: string
 }
-const headers = {
-  'x-robot-art-api-key': process.env.REACT_APP_API_KEY,
-  Authorization: `Bearer ${getToken()}`,
-}
 
 export const getRobotVotes = (robotId: string): Promise<SuccessResp[]> => {
+  const headers = {
+    'x-robot-art-api-key': process.env.REACT_APP_API_KEY,
+    Authorization: `Bearer ${getToken()}`,
+  }
+
   return axios
     .get(`${process.env.REACT_APP_BASE_URL}/robots/${robotId}/votes`, {
       headers,

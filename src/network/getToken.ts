@@ -1,9 +1,10 @@
-import { AuthToken } from '../hooks/useAuth'
-
 export const getToken = (): string | undefined => {
+  console.log('getToken fires ')
   const tokenString = localStorage.getItem('token')
+  console.log('tokenString is ', tokenString)
   if (tokenString) {
-    const authToken: AuthToken = JSON.parse(tokenString)
-    return authToken?.token
+    return tokenString
+  } else {
+    console.log('no token string')
   }
 }

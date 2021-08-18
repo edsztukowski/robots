@@ -1,6 +1,5 @@
 import { FC, useState } from 'react'
 import { loginPOST } from '../../network/POST/login'
-import { AuthToken } from '../../hooks/useAuth'
 import { registerPOST } from '../../network/POST/register'
 import { TextField } from '../../Components/Inputs/TextField'
 import { Card } from '../../Components/Layout/Card'
@@ -9,7 +8,7 @@ import logo from '../../assets/images/logo.png'
 import styled from '@emotion/styled'
 
 interface LoginProps {
-  setToken: (authToken: AuthToken) => void
+  setToken: (arg0: string) => void
 }
 
 const NameContainer = styled.div<{ show: boolean }>`
@@ -50,11 +49,11 @@ export const Login: FC<LoginProps> = ({ setToken }) => {
     e.preventDefault()
     if (register) {
       registerPOST(name, email, password).then((res) => {
-        setToken({ token: res.token })
+        setToken(res.token)
       })
     } else {
       loginPOST(email, password).then((res) => {
-        setToken({ token: res.token })
+        setToken(res.token)
       })
     }
   }

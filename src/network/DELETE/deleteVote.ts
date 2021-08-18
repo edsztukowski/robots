@@ -1,12 +1,11 @@
 import axios from 'axios'
 import { getToken } from '../getToken'
 
-const headers = {
-  'x-robot-art-api-key': process.env.REACT_APP_API_KEY,
-  Authorization: `Bearer ${getToken()}`,
-}
-
 export const deleteVote = (voteId: string): Promise<string> => {
+  const headers = {
+    'x-robot-art-api-key': process.env.REACT_APP_API_KEY,
+    Authorization: `Bearer ${getToken()}`,
+  }
   return axios
     .delete(`${process.env.REACT_APP_BASE_URL}/votes/${voteId}`, {
       headers,

@@ -45,6 +45,9 @@ export const RobotResults: FC<ResultsProps> = ({ robotVotes, totalVotes }) => {
 
   useEffect(() => {
     setRobotPercent((robotVotes / totalVotes) * 100)
+    return () => {
+      setRobotPercent(0)
+    }
   }, [robotVotes, totalVotes])
   return (
     <>

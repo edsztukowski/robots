@@ -11,6 +11,13 @@ const StyledWrapper = styled.div`
 const ContentContainer = styled.div`
   max-width: 1240px;
   margin: 0 auto;
+
+  @media screen and (max-width: 1317px) {
+    max-width: 826px;
+  }
+  @media screen and (max-width: 895px) {
+    max-width: 400px;
+  }
 `
 
 export const PageWrapper: FC = ({ children }) => {

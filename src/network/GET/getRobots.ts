@@ -5,12 +5,12 @@ export interface GetRobotsRes {
   name: string
   url: string
 }
-const headers = {
-  'x-robot-art-api-key': process.env.REACT_APP_API_KEY,
-  Authorization: `Bearer ${getToken()}`,
-}
 
 export const getRobots = (): Promise<GetRobotsRes[]> => {
+  const headers = {
+    'x-robot-art-api-key': process.env.REACT_APP_API_KEY,
+    Authorization: `Bearer ${getToken()}`,
+  }
   return axios
     .get(`${process.env.REACT_APP_BASE_URL}/robots`, {
       headers,

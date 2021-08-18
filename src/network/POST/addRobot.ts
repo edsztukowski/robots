@@ -5,16 +5,17 @@ interface SuccessResp {
   name: string
   url: string
 }
-const headers = {
-  'x-robot-art-api-key': process.env.REACT_APP_API_KEY,
-  Authorization: `Bearer ${getToken()}`,
-  'content-type': 'multipart/form-data',
-}
 
 export const addRobotPOST = (
   name: string,
   image: File
 ): Promise<SuccessResp> => {
+  const headers = {
+    'x-robot-art-api-key': process.env.REACT_APP_API_KEY,
+    Authorization: `Bearer ${getToken()}`,
+    'content-type': 'multipart/form-data',
+  }
+
   const formData = new FormData()
   formData.append('name', name)
   formData.append('image', image)
