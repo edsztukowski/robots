@@ -1,10 +1,11 @@
-import { FC } from 'react'
-import { Link } from 'react-router-dom'
+import { FC, useState, useEffect } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import { useAuth } from '../../hooks/useAuth'
+import { MobileMenu } from './MobileMenu'
 import logo from '../../assets/images/logo.png'
 import styled from '@emotion/styled'
 
-const HeaderWrapper = styled.div`
+const HeaderWrapper = styled.nav`
   background: var(--white);
   box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.17);
   display: flex;
@@ -45,12 +46,18 @@ const PrimaryLink = styled(StyledLink)`
   font-size: 18px;
   font-weight: 700;
   color: var(--gray3);
+  @media screen and (max-width: 895px) {
+    display: none;
+  }
 `
 
 const SecondaryLink = styled(StyledLink)`
   font-size: 16px;
   font-weight: 400;
   color: var(--gray2);
+  @media screen and (max-width: 895px) {
+    display: none;
+  }
 `
 
 const ButtonLink = styled.button`
@@ -65,10 +72,38 @@ const ButtonLink = styled.button`
   &:active {
     text-decoration: underline;
   }
+  @media screen and (max-width: 895px) {
+    display: none;
+  }
+`
+
+const HamburgerMenu = styled.div`
+  height: 30px;
+  width: 30px;
+  background: #333;
+  display: none;
+  @media screen and (max-width: 894px) {
+    display: block;
+  }
 `
 
 export const Header: FC = () => {
   const { userType } = useAuth()
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const location = useLocation()
+
+  useEffect(() => {
+    setMobileMenuOpen(false)
+  }, [location])
+
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'unset'
+    }
+  }, [mobileMenuOpen])
+
   return (
     <HeaderWrapper>
       <NavContainer direction="start">
@@ -81,7 +116,13 @@ export const Header: FC = () => {
           <SecondaryLink to="/admin">Admin</SecondaryLink>
         )}
         <ButtonLink>Log out</ButtonLink>
+        <HamburgerMenu onClick={() => setMobileMenuOpen(true)} />
       </NavContainer>
+      <MobileMenu
+        currentPage={location.pathname}
+        open={mobileMenuOpen}
+        setOpen={setMobileMenuOpen}
+      />
     </HeaderWrapper>
   )
 }
