@@ -30,7 +30,7 @@ const CardContent = styled.div`
 
 const UploadImage = styled.img`
   max-width: 100%;
-  max-height: 240px;
+  max-height: 203px;
   margin-bottom: 36px;
 `
 
@@ -59,6 +59,12 @@ export const AddCard: FC<AddCardProps> = ({
     setImage('')
   }, [resetAdd])
 
+  const handleClear = () => {
+    setImage(null)
+    setFileUpload(null)
+    setName('')
+  }
+
   return (
     <CardWrapper disabled={disabled}>
       <Card width="100%">
@@ -76,7 +82,7 @@ export const AddCard: FC<AddCardProps> = ({
             <FileDrop setFileUpload={setFileUpload} setImage={setImage} />
           )}
           <FlexRow justifyContent="space-between">
-            <LinkButton>Clear</LinkButton>
+            <LinkButton onClick={() => handleClear()}>Clear</LinkButton>
             <Button
               width="229px"
               onClick={() => handleAdd(name, fileUpload)}
