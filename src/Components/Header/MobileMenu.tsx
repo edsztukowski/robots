@@ -14,6 +14,7 @@ const StyledMenu = styled.nav<{ open: boolean }>`
   text-align: center;
   position: absolute;
   top: 0;
+  width: ${({ open }) => (open ? '100%' : 'auto')};
   left: 0;
   transition: transform 0.3s ease-in-out;
   z-index: 1;

@@ -8,6 +8,10 @@ interface HamburgerProps {
 }
 
 const StyledHamburger = styled.div<{ open: boolean }>`
+  display: none;
+  @media screen and (max-width: 895px) {
+    display: block;
+  }
   z-index: 3;
   span {
     display: block;
