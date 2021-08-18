@@ -23,6 +23,8 @@ const CardContent = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 0 23px 37px;
+  justify-content: space-between;
+  height: 100%;
 `
 
 const IMG = styled.img<{ marginBottom: string }>`
@@ -43,7 +45,7 @@ export const RobotCard: FC<RobotCardProps> = ({
 }) => {
   return (
     <CardWrapper disabled={disabled}>
-      <Card>
+      <Card cardHeight="519px">
         <CardContent>
           <H3
             style={{ textTransform: 'capitalize' }}

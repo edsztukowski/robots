@@ -59,7 +59,7 @@ export const Login: FC<LoginProps> = ({ setToken }) => {
   }
   return (
     <PageContainer>
-      <Card maxHeight="836px" maxWidth="607px" width="100%">
+      <Card maxHeight="836px" maxWidth="607px" cardWidth="100%">
         <LoginContainer>
           <Logo src={logo} alt="Logo" />
           <form onSubmit={handleSubmit}>

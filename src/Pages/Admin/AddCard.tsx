@@ -67,7 +67,7 @@ export const AddCard: FC<AddCardProps> = ({
 
   return (
     <CardWrapper disabled={disabled}>
-      <Card width="100%">
+      <Card cardHeight="519px" cardWidth="100%">
         <CardContent>
           <H3>{label}</H3>
           <TextField
