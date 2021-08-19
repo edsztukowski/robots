@@ -123,6 +123,7 @@ export const Header: FC = () => {
         />
       </NavContainer>
       <MobileMenu
+        adminUser={userType === 'admin'}
         handleLogout={handleLogout}
         currentPage={location.pathname}
         open={mobileMenuOpen}

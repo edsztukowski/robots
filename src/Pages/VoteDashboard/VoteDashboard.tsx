@@ -9,23 +9,33 @@ import { CardsWrapper } from '../../Components/Layout/CardsWrapper'
 import { deleteVote } from '../../network/DELETE/deleteVote'
 import { Loading } from '../../Components/Layout/Loading'
 import { H1 } from '../../Components/Typography/Typography'
+import { ErrorPage } from '../ErrorPage/ErrorPage'
 
 export const VoteDashboard: FC = () => {
   const [robots, setRobots] = useState<GetRobotsRes[] | []>([])
   const [myVotes, setMyVotes] = useState<GetVotesRes[]>([])
+  const [hasError, setHasError] = useState(false)
   const [processing, setProcessing] = useState(false)
   const { userId } = useAuth()
 
   useEffect(() => {
-    getRobots().then((res) => {
-      setRobots(res)
-    })
+    getRobots()
+      .then((res) => {
+        setRobots(res)
+      })
+      .catch(() => {
+        setHasError(true)
+      })
   }, [])
 
   useEffect(() => {
-    getVotes().then((res) => {
-      getMyVotes(res)
-    })
+    getVotes()
+      .then((res) => {
+        getMyVotes(res)
+      })
+      .catch(() => {
+        setHasError(true)
+      })
   }, [userId])
 
   const getMyVotes = (allVotes: GetVotesRes[]) => {
@@ -59,34 +69,40 @@ export const VoteDashboard: FC = () => {
 
   return (
     <PageWrapper>
-      <H1>Robots</H1>
-      {robots.length === 0 ? (
-        <CardsWrapper>
-          <Loading />
-        </CardsWrapper>
+      {hasError ? (
+        <ErrorPage />
       ) : (
-        robots.length > 0 && (
-          <CardsWrapper>
-            {processing && <Loading />}
-            {robots.map((robot) => {
-              const hasVoted =
-                myVotes.filter((vote) => vote.robot === robot.id).length > 0
-              return (
-                <React.Fragment key={robot.id}>
-                  <RobotCard
-                    view="vote"
-                    disabled={processing}
-                    hasVoted={hasVoted}
-                    handleClick={handleVote}
-                    id={robot.id}
-                    name={robot.name}
-                    url={robot.url}
-                  />
-                </React.Fragment>
-              )
-            })}
-          </CardsWrapper>
-        )
+        <>
+          <H1>Robots</H1>
+          {robots.length === 0 ? (
+            <CardsWrapper>
+              <Loading />
+            </CardsWrapper>
+          ) : (
+            robots.length > 0 && (
+              <CardsWrapper>
+                {processing && <Loading />}
+                {robots.map((robot) => {
+                  const hasVoted =
+                    myVotes.filter((vote) => vote.robot === robot.id).length > 0
+                  return (
+                    <React.Fragment key={robot.id}>
+                      <RobotCard
+                        view="vote"
+                        disabled={processing}
+                        hasVoted={hasVoted}
+                        handleClick={handleVote}
+                        id={robot.id}
+                        name={robot.name}
+                        url={robot.url}
+                      />
+                    </React.Fragment>
+                  )
+                })}
+              </CardsWrapper>
+            )
+          )}
+        </>
       )}
     </PageWrapper>
   )

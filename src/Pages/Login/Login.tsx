@@ -68,6 +68,7 @@ export const Login: FC<LoginProps> = ({ setToken }) => {
   const hasNoErrors = useCallback(
     (submitType: 'register' | 'login'): boolean => {
       const isEmailValid = validEmail(email)
+      console.log('submitType is ', submitType)
       if (submitType === 'register') {
         if (!name || !password || !isEmailValid) {
           setNameError(Boolean(!name))
@@ -78,7 +79,7 @@ export const Login: FC<LoginProps> = ({ setToken }) => {
         clearFieldErrors()
         return true
       } else {
-        if (!name || !password || !isEmailValid) {
+        if (!password || !isEmailValid) {
           setNameError(Boolean(!name))
           setPasswordError(Boolean(!password))
           setEmailError(!isEmailValid)
@@ -94,10 +95,12 @@ export const Login: FC<LoginProps> = ({ setToken }) => {
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault()
 
-    if (register && hasNoErrors('register')) {
-      registerPOST(name, email, password).then((res) => {
-        setToken(res.token)
-      })
+    if (register) {
+      if (hasNoErrors('register')) {
+        registerPOST(name, email, password).then((res) => {
+          setToken(res.token)
+        })
+      }
     } else {
       if (hasNoErrors('login')) {
         loginPOST(email, password)
@@ -135,6 +138,7 @@ export const Login: FC<LoginProps> = ({ setToken }) => {
               hasError={passwordError}
               label="Password"
               value={password}
+              type="password"
               onChange={setPassword}
             />
             <ButtonWrap>

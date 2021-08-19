@@ -8,6 +8,7 @@ interface TextProps {
   onChange: React.Dispatch<React.SetStateAction<string>>
   placeholder?: string
   margin?: string
+  type?: 'text' | 'password'
 }
 
 const TextContainer = styled.div<{ margin?: string; hasError?: boolean }>`
@@ -71,6 +72,7 @@ export const TextField: FC<TextProps> = ({
   onChange,
   label,
   hasError,
+  type = 'text',
   placeholder,
   margin = '0 0 44px 0',
 }) => {
@@ -80,6 +82,7 @@ export const TextField: FC<TextProps> = ({
         {hasError && <ErrorField>Required</ErrorField>}
         <StyledLabel>{label}</StyledLabel>
         <StyledInput
+          type={type}
           placeholder={placeholder}
           value={value}
           onChange={(e) => onChange(e.target.value)}

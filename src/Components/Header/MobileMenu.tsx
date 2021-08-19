@@ -8,6 +8,7 @@ interface MobileMenuProps {
   open: boolean
   currentPage: string
   handleLogout: () => void
+  adminUser: boolean
 }
 
 const StyledMenu = styled.nav<{ open: boolean }>`
@@ -48,6 +49,7 @@ export const MobileMenu: FC<MobileMenuProps> = ({
   open,
   currentPage,
   handleLogout,
+  adminUser,
 }) => {
   const gray = getCSSVal('--gray1')
   const activeLink = getCSSVal('--white')
@@ -68,14 +70,16 @@ export const MobileMenu: FC<MobileMenuProps> = ({
             Results
           </StyledLink>
         </H2>
-        <H2>
-          <StyledLink
-            color={currentPage === '/admin' ? activeLink : gray}
-            to="/admin"
-          >
-            Admin
-          </StyledLink>
-        </H2>
+        {adminUser && (
+          <H2>
+            <StyledLink
+              color={currentPage === '/admin' ? activeLink : gray}
+              to="/admin"
+            >
+              Admin
+            </StyledLink>
+          </H2>
+        )}
 
         <StyledButton onClick={handleLogout}>
           <H2 color={gray}>Logout</H2>

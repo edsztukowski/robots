@@ -6,7 +6,9 @@ export interface SuccessResp {
   user: string
 }
 
-export const getRobotVotes = (robotId: string): Promise<SuccessResp[]> => {
+export const getRobotVotes = (
+  robotId: string
+): Promise<SuccessResp[] | boolean> => {
   const headers = {
     'x-robot-art-api-key': process.env.REACT_APP_API_KEY,
     Authorization: `Bearer ${getToken()}`,

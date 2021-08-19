@@ -34,10 +34,16 @@ export const useAuth = (): useTokenReturnType => {
   useEffect(() => {
     if (token) {
       const checkAdmin = async () => {
-        const sessionData = await getSession()
-        const adminUser = isAdmin(sessionData.email)
-        setUserId(sessionData.id)
-        setUserType(adminUser ? 'admin' : 'user')
+        try {
+          const sessionData = await getSession()
+          if (sessionData) {
+            const adminUser = isAdmin(sessionData.email)
+            setUserId(sessionData.id)
+            setUserType(adminUser ? 'admin' : 'user')
+          }
+        } catch (error) {
+          console.log('error is ', error)
+        }
       }
       checkAdmin()
     } else {
