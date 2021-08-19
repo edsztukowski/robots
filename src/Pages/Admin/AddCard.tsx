@@ -44,6 +44,8 @@ export const AddCard: FC<AddCardProps> = ({
   const [name, setName] = useState('')
   const [fileUpload, setFileUpload] = useState<File | null>(null)
   const [image, setImage] = useState<string | null>(null)
+  const [nameError, setNameError] = useState(false)
+  const [fileError, setFileError] = useState(false)
 
   useEffect(() => {
     if (name && fileUpload) {
@@ -65,12 +67,22 @@ export const AddCard: FC<AddCardProps> = ({
     setName('')
   }
 
+  const addClick = (robotName: string, robotFile: File | null) => {
+    if (robotName && robotFile) {
+      handleAdd(robotName, robotFile)
+    } else {
+      setNameError(!robotName)
+      setFileError(!robotFile)
+    }
+  }
+
   return (
     <CardWrapper disabled={disabled}>
       <Card cardHeight="519px" cardWidth="100%">
         <CardContent>
           <H3>{label}</H3>
           <TextField
+            hasError={nameError}
             value={name}
             onChange={setName}
             label="Name"
@@ -79,13 +91,17 @@ export const AddCard: FC<AddCardProps> = ({
           {image ? (
             <UploadImage alt={name} src={image} />
           ) : (
-            <FileDrop setFileUpload={setFileUpload} setImage={setImage} />
+            <FileDrop
+              hasError={fileError}
+              setFileUpload={setFileUpload}
+              setImage={setImage}
+            />
           )}
           <FlexRow justifyContent="space-between">
             <LinkButton onClick={() => handleClear()}>Clear</LinkButton>
             <Button
               width="229px"
-              onClick={() => handleAdd(name, fileUpload)}
+              onClick={() => addClick(name, fileUpload)}
               disabled={disableAdd}
               type="submit"
             >

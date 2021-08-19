@@ -7,15 +7,17 @@ import styled from '@emotion/styled'
 interface FileDropProps {
   setFileUpload: React.Dispatch<React.SetStateAction<File | null>>
   setImage: React.Dispatch<React.SetStateAction<string | null>>
+  hasError: boolean
 }
-const DropContainer = styled.div`
+const DropContainer = styled.div<{ hasError: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
   height: 208px;
   background: var(--gray4);
-  border: 2px dashed var(--gray2);
+  border: ${({ hasError }) =>
+    hasError ? '2px dashed var(--error)' : '2px dashed var(--gray2)'};
   border-radius: 8px;
   margin-bottom: 24px;
   &:hover {
@@ -39,7 +41,11 @@ const UploadIcon = styled.img`
   margin-bottom: 21px;
 `
 
-export const FileDrop: FC<FileDropProps> = ({ setFileUpload, setImage }) => {
+export const FileDrop: FC<FileDropProps> = ({
+  setFileUpload,
+  setImage,
+  hasError,
+}) => {
   const onDrop = useCallback((acceptedFiles) => {
     acceptedFiles.forEach((file: File) => {
       const reader = new FileReader()
@@ -58,7 +64,7 @@ export const FileDrop: FC<FileDropProps> = ({ setFileUpload, setImage }) => {
   })
 
   return (
-    <DropContainer {...getRootProps()}>
+    <DropContainer {...getRootProps()} hasError={hasError}>
       <input
         type="file"
         name="image"
