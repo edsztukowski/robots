@@ -13,7 +13,13 @@ export const deleteVote = (voteId: string): Promise<string> => {
     .then((res) => {
       return res.data as string
     })
-    .catch((err) => {
-      throw new Error(err.message as string)
+    .catch((error) => {
+      if (error.response) {
+        throw new Error(error.response.message)
+      } else if (error.request) {
+        throw new Error(error.request)
+      } else {
+        throw new Error(error.message)
+      }
     })
 }

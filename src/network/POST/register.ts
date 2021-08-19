@@ -29,7 +29,13 @@ export const registerPOST = (
         return res as SuccessResp
       })
     })
-    .catch((err) => {
-      throw new Error(err.message as string)
+    .catch((error) => {
+      if (error.response) {
+        throw new Error(error.response.message)
+      } else if (error.request) {
+        throw new Error(error.request)
+      } else {
+        throw new Error(error.message)
+      }
     })
 }

@@ -1,9 +1,10 @@
-import { FC, useState } from 'react'
+import { FC, useState, useCallback } from 'react'
 import { loginPOST } from '../../network/POST/login'
 import { registerPOST } from '../../network/POST/register'
 import { TextField } from '../../Components/Inputs/TextField'
 import { Card } from '../../Components/Layout/Card'
 import { Button } from '../../Components/Button/Button'
+import { validEmail } from '../../utils/validators'
 import logo from '../../assets/images/logo.png'
 import styled from '@emotion/styled'
 
@@ -54,17 +55,59 @@ export const Login: FC<LoginProps> = ({ setToken }) => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [nameError, setNameError] = useState(false)
+  const [passwordError, setPasswordError] = useState(false)
+  const [emailError, setEmailError] = useState(false)
+
+  const clearFieldErrors = () => {
+    setNameError(false)
+    setEmailError(false)
+    setPasswordError(false)
+  }
+
+  const hasNoErrors = useCallback(
+    (submitType: 'register' | 'login'): boolean => {
+      const isEmailValid = validEmail(email)
+      if (submitType === 'register') {
+        if (!name || !password || !isEmailValid) {
+          setNameError(Boolean(!name))
+          setPasswordError(Boolean(!password))
+          setEmailError(!isEmailValid)
+          return false
+        }
+        clearFieldErrors()
+        return true
+      } else {
+        if (!name || !password || !isEmailValid) {
+          setNameError(Boolean(!name))
+          setPasswordError(Boolean(!password))
+          setEmailError(!isEmailValid)
+          return false
+        }
+        clearFieldErrors()
+        return true
+      }
+    },
+    [name, email, password]
+  )
 
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault()
-    if (register) {
+
+    if (register && hasNoErrors('register')) {
       registerPOST(name, email, password).then((res) => {
         setToken(res.token)
       })
     } else {
-      loginPOST(email, password).then((res) => {
-        setToken(res.token)
-      })
+      if (hasNoErrors('login')) {
+        loginPOST(email, password)
+          .then((res) => {
+            setToken(res.token)
+          })
+          .catch((err) => {
+            console.log('catching an error', err)
+          })
+      }
     }
   }
   return (
@@ -75,14 +118,21 @@ export const Login: FC<LoginProps> = ({ setToken }) => {
           <form onSubmit={handleSubmit}>
             <NameContainer show={register}>
               <TextField
+                hasError={nameError}
                 aria-hidden={!register}
                 label="Name"
                 value={name}
                 onChange={setName}
               />
             </NameContainer>
-            <TextField label="Email" value={email} onChange={setEmail} />
             <TextField
+              hasError={emailError}
+              label="Email"
+              value={email}
+              onChange={setEmail}
+            />
+            <TextField
+              hasError={passwordError}
               label="Password"
               value={password}
               onChange={setPassword}
