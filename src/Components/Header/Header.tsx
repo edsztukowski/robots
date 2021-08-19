@@ -3,6 +3,8 @@ import { Link, useLocation } from 'react-router-dom'
 import { useAuth } from '../../hooks/useAuth'
 import { MobileMenu } from './MobileMenu'
 import { HamburgerMenu } from './HamburgerMenu'
+import { deleteSession } from '../../network/DELETE/deleteSession'
+import { deleteToken } from '../../network/tokenHelpers'
 import logo from '../../assets/images/logo.png'
 import styled from '@emotion/styled'
 
@@ -13,6 +15,7 @@ const HeaderWrapper = styled.nav`
   justify-content: space-between;
   padding: 24px 40px;
   max-width: 1240px;
+  box-sizing: content-box;
   margin: 0 auto;
   @media screen and (max-width: 1317px) {
     max-width: 826px;
@@ -95,6 +98,13 @@ export const Header: FC = () => {
     }
   }, [mobileMenuOpen])
 
+  const handleLogout = () => {
+    deleteSession().then(() => {
+      deleteToken()
+      window.location.reload()
+    })
+  }
+
   return (
     <HeaderWrapper>
       <NavContainer direction="start">
@@ -106,13 +116,17 @@ export const Header: FC = () => {
         {userType === 'admin' && (
           <SecondaryLink to="/admin">Admin</SecondaryLink>
         )}
-        <ButtonLink>Log out</ButtonLink>
+        <ButtonLink onClick={handleLogout}>Log out</ButtonLink>
         <HamburgerMenu
           open={mobileMenuOpen}
           handleClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         />
       </NavContainer>
-      <MobileMenu currentPage={location.pathname} open={mobileMenuOpen} />
+      <MobileMenu
+        handleLogout={handleLogout}
+        currentPage={location.pathname}
+        open={mobileMenuOpen}
+      />
     </HeaderWrapper>
   )
 }

@@ -15,7 +15,6 @@ interface useTokenReturnType {
 }
 export const useAuth = (): useTokenReturnType => {
   const getToken = () => {
-    console.log('use auth fires')
     const tokenString = localStorage.getItem('token')
     if (tokenString) {
       return tokenString
@@ -41,6 +40,10 @@ export const useAuth = (): useTokenReturnType => {
         setUserType(adminUser ? 'admin' : 'user')
       }
       checkAdmin()
+    } else {
+      setUserId('')
+      setUserType('user')
+      setToken(undefined)
     }
   }, [token])
 

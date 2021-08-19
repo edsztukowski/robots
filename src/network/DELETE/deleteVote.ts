@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { getToken } from '../getToken'
+import { getToken } from '../tokenHelpers'
 
 export const deleteVote = (voteId: string): Promise<string> => {
   const headers = {

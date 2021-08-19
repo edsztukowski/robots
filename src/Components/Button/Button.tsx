@@ -33,6 +33,7 @@ const StyledButton = styled.button<StyledProps>`
     btnType === 'primary'
       ? '2px solid var(--gray3)'
       : '2px solid var(--gray3)'};
+  transition: all 0.3s ease;
 
   &:hover {
     cursor: pointer;

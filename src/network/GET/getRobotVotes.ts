@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { getToken } from '../getToken'
+import { getToken } from '../tokenHelpers'
 export interface SuccessResp {
   id: string
   robot: string

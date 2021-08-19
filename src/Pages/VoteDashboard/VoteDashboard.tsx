@@ -67,13 +67,12 @@ export const VoteDashboard: FC = () => {
       ) : (
         robots.length > 0 && (
           <CardsWrapper>
+            {processing && <Loading />}
             {robots.map((robot) => {
               const hasVoted =
                 myVotes.filter((vote) => vote.robot === robot.id).length > 0
               return (
                 <React.Fragment key={robot.id}>
-                  {processing && <Loading />}
-
                   <RobotCard
                     view="vote"
                     disabled={processing}

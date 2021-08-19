@@ -1,26 +1,17 @@
 import axios from 'axios'
 import { getToken } from '../tokenHelpers'
-interface SuccessResp {
-  id: string
-  robot: string
-  user: string
-}
 
-export const votePOST = (voteId: string): Promise<SuccessResp> => {
+export const deleteSession = (): Promise<string> => {
   const headers = {
     'x-robot-art-api-key': process.env.REACT_APP_API_KEY,
     Authorization: `Bearer ${getToken()}`,
   }
   return axios
-    .post(
-      `${process.env.REACT_APP_BASE_URL}/votes`,
-      { robot: voteId },
-      {
-        headers,
-      }
-    )
+    .delete(`${process.env.REACT_APP_BASE_URL}/auth/session`, {
+      headers,
+    })
     .then((res) => {
-      return res.data as SuccessResp
+      return res.data as string
     })
     .catch((err) => {
       throw new Error(err.message as string)

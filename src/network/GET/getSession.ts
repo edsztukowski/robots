@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { getToken } from '../getToken'
+import { getToken } from '../tokenHelpers'
 interface SuccessResp {
   id: string
   name: string

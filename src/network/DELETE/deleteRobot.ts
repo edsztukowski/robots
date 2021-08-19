@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { getToken } from '../getToken'
+import { getToken } from '../tokenHelpers'
 
 export const deleteRobot = (robotId: string): Promise<string> => {
   const headers = {

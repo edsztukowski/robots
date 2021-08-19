@@ -25,10 +25,10 @@ const StyledHamburger = styled.div<{ open: boolean }>`
     transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1),
       background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1), opacity 0.55s ease;
   }
-  span:first-child {
+  span:first-of-type {
     transform-origin: 0% 0%;
   }
-  span:nth-last-child(2) {
+  span:nth-last-of-type(2) {
     transform-origin: 0% 100%;
   }
   ${({ open }) =>
@@ -39,11 +39,11 @@ const StyledHamburger = styled.div<{ open: boolean }>`
         transform: rotate(45deg) translate(-3px, -5px);
         background: #fff;
       }
-      span:nth-last-child(2) {
+      span:nth-last-of-type(2) {
         opacity: 0;
         transform: rotate(0deg) scale(0.2, 0.2);
       }
-      span:nth-last-child(1) {
+      span:nth-last-of-type(1) {
         transform: rotate(-45deg) translate(0, -5px);
       }
     `}

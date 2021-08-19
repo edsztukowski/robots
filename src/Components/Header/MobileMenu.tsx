@@ -4,6 +4,12 @@ import { H2 } from '../Typography/Typography'
 import { getCSSVal } from '../../utils/getCSSVal'
 import { Link } from 'react-router-dom'
 
+interface MobileMenuProps {
+  open: boolean
+  currentPage: string
+  handleLogout: () => void
+}
+
 const StyledMenu = styled.nav<{ open: boolean }>`
   display: flex;
   flex-direction: column;
@@ -28,10 +34,21 @@ const StyledLink = styled(Link)<{ color: string }>`
   text-decoration: none;
 `
 
-export const MobileMenu: FC<{
-  open: boolean
-  currentPage: string
-}> = ({ open, currentPage }) => {
+const StyledButton = styled.button`
+  color: ${({ color }) => color};
+  background: none;
+  border: none;
+  text-decoration: none;
+  &:hover {
+    cursor: pointer;
+  }
+`
+
+export const MobileMenu: FC<MobileMenuProps> = ({
+  open,
+  currentPage,
+  handleLogout,
+}) => {
   const gray = getCSSVal('--gray1')
   const activeLink = getCSSVal('--white')
 
@@ -59,9 +76,10 @@ export const MobileMenu: FC<{
             Admin
           </StyledLink>
         </H2>
-        <H2 color={gray}>
-          <a href="/logout">Logout</a>
-        </H2>
+
+        <StyledButton onClick={handleLogout}>
+          <H2 color={gray}>Logout</H2>
+        </StyledButton>
       </StyledMenu>
     </>
   )

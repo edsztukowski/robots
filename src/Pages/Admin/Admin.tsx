@@ -52,10 +52,11 @@ export const AdminDash: FC = () => {
     <PageWrapper>
       <H1>Admin</H1>
       <CardsWrapper>
-        {processing ? (
+        {robots.length === 0 ? (
           <Loading />
         ) : (
           <>
+            {processing && <Loading />}
             <AddCard
               label="Add Robots"
               handleAdd={handleAdd}

@@ -28,11 +28,21 @@ const PageContainer = styled.div`
 
 const LoginContainer = styled.div`
   padding: 80px 54px 94px 53px;
+
+  @media screen and (max-width: 419px) {
+    padding: 50px 20px 94px 20px;
+    height: 100vh;
+  }
 `
 
 const Logo = styled.img`
   margin: 0 auto 84px;
   display: flex;
+  max-height: 91px;
+
+  @media screen and (max-width: 419px) {
+    max-height: 65px;
+  }
 `
 
 const ButtonWrap = styled.div`
