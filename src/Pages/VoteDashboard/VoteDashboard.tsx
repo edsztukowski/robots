@@ -86,17 +86,16 @@ export const VoteDashboard: FC = () => {
                   const hasVoted =
                     myVotes.filter((vote) => vote.robot === robot.id).length > 0
                   return (
-                    <React.Fragment key={robot.id}>
-                      <RobotCard
-                        view="vote"
-                        disabled={processing}
-                        hasVoted={hasVoted}
-                        handleClick={handleVote}
-                        id={robot.id}
-                        name={robot.name}
-                        url={robot.url}
-                      />
-                    </React.Fragment>
+                    <RobotCard
+                      key={robot.id}
+                      view="vote"
+                      disabled={processing}
+                      hasVoted={hasVoted}
+                      handleClick={handleVote}
+                      id={robot.id}
+                      name={robot.name}
+                      url={robot.url}
+                    />
                   )
                 })}
               </CardsWrapper>
