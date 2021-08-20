@@ -119,7 +119,7 @@ export const Login: FC<LoginProps> = ({ setToken }) => {
     }
   }
   return (
-    <PageContainer>
+    <PageContainer role="main">
       <Card maxHeight="836px" maxWidth="607px" cardWidth="100%">
         <LoginContainer>
           <Logo src={logo} alt="Logo" />

@@ -82,6 +82,7 @@ export const TextField: FC<TextProps> = ({
         {hasError && <ErrorField>Required</ErrorField>}
         <StyledLabel>{label}</StyledLabel>
         <StyledInput
+          aria-label={label}
           type={type}
           placeholder={placeholder}
           value={value}

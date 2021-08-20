@@ -22,7 +22,7 @@ const ContentContainer = styled.div`
 
 export const PageWrapper: FC = ({ children }) => {
   return (
-    <StyledWrapper>
+    <StyledWrapper role={'main'}>
       <ContentContainer>{children}</ContentContainer>
     </StyledWrapper>
   )

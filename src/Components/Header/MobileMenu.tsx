@@ -56,14 +56,19 @@ export const MobileMenu: FC<MobileMenuProps> = ({
 
   return (
     <>
-      <StyledMenu open={open}>
+      <StyledMenu aria-hidden={!open} open={open}>
         <H2>
-          <StyledLink color={currentPage === '/' ? activeLink : gray} to="/">
+          <StyledLink
+            tabIndex={!open ? -1 : 0}
+            color={currentPage === '/' ? activeLink : gray}
+            to="/"
+          >
             Robots
           </StyledLink>
         </H2>
         <H2>
           <StyledLink
+            tabIndex={!open ? -1 : 0}
             color={currentPage === '/results' ? activeLink : gray}
             to="/results"
           >
@@ -73,6 +78,7 @@ export const MobileMenu: FC<MobileMenuProps> = ({
         {adminUser && (
           <H2>
             <StyledLink
+              tabIndex={!open ? -1 : 0}
               color={currentPage === '/admin' ? activeLink : gray}
               to="/admin"
             >
@@ -81,7 +87,7 @@ export const MobileMenu: FC<MobileMenuProps> = ({
           </H2>
         )}
 
-        <StyledButton onClick={handleLogout}>
+        <StyledButton tabIndex={!open ? -1 : 0} onClick={handleLogout}>
           <H2 color={gray}>Logout</H2>
         </StyledButton>
       </StyledMenu>
