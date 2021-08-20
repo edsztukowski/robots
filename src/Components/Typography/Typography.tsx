@@ -23,5 +23,6 @@ export const H3 = styled.h3<{ color?: string }>`
 `
 
 export const Error = styled.div`
+  margin-bottom: 16px;
   color: var(--error);
 `

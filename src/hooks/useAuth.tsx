@@ -37,12 +37,12 @@ export const useAuth = (): useTokenReturnType => {
         try {
           const sessionData = await getSession()
           if (sessionData) {
-            const adminUser = isAdmin(sessionData.email)
+            const adminUser = isAdmin(sessionData.id)
             setUserId(sessionData.id)
             setUserType(adminUser ? 'admin' : 'user')
           }
         } catch (error) {
-          console.log('error is ', error)
+          console.log('error is ', error.message)
         }
       }
       checkAdmin()

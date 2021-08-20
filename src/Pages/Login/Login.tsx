@@ -123,7 +123,6 @@ export const Login: FC<LoginProps> = ({ setToken }) => {
       <Card maxHeight="836px" maxWidth="607px" cardWidth="100%">
         <LoginContainer>
           <Logo src={logo} alt="Logo" />
-
           <form onSubmit={handleSubmit}>
             <NameContainer show={register}>
               <TextField
@@ -153,7 +152,6 @@ export const Login: FC<LoginProps> = ({ setToken }) => {
                 {!register ? 'Login' : 'Register'}
               </Button>
             </ButtonWrap>
-
             <Button
               type="button"
               btnType="secondary"

@@ -17,6 +17,7 @@ export const getSession = (): Promise<SuccessResp> => {
       headers,
     })
     .then((res) => {
+      console.log('res.data is ', res.data)
       return res.data as SuccessResp
     })
     .catch((error) => {
