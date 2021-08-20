@@ -8,5 +8,3 @@ yarn start
 ```
 
 Check me out on Heroku: http://robo-vote.herokuapp.com/
-
-## Contributing
