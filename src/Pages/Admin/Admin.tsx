@@ -28,8 +28,8 @@ export const AdminDash: FC = () => {
       .then(() => {
         setRobots(robots.filter((robot) => robot.id !== id))
       })
-      .catch(() => {
-        console.log('error occurred')
+      .catch((err) => {
+        console.log('Error: ', err.message)
       })
   }
 
