@@ -8,3 +8,10 @@ yarn start
 ```
 
 Check me out on Heroku: http://robo-vote.herokuapp.com/
+
+## Get started contributing:
+
+- Add pages to the Pages folder
+- Shareable items can be stored in the Components folder
+- Network request should go into the network folder
+- If you need an authorized network request, get session tokens by using `getToken()` in the headers
