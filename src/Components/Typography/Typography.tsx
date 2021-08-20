@@ -21,3 +21,7 @@ export const H3 = styled.h3<{ color?: string }>`
   line-height: 25px;
   color: ${({ color }) => (color ? color : '#000000')};
 `
+
+export const Error = styled.div`
+  color: var(--error);
+`

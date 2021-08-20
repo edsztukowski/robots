@@ -15,7 +15,7 @@ export const deleteSession = (): Promise<string> => {
     })
     .catch((error) => {
       if (error.response) {
-        throw new Error(error.response.message)
+        throw new Error(JSON.stringify(error.response.statusText))
       } else if (error.request) {
         throw new Error(error.request)
       } else {

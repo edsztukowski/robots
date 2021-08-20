@@ -7,6 +7,7 @@ import { Button } from '../../Components/Button/Button'
 import { validEmail } from '../../utils/validators'
 import logo from '../../assets/images/logo.png'
 import styled from '@emotion/styled'
+import { Error } from '../../Components/Typography/Typography'
 
 interface LoginProps {
   setToken: (arg0: string) => void
@@ -52,6 +53,7 @@ const ButtonWrap = styled.div`
 
 export const Login: FC<LoginProps> = ({ setToken }) => {
   const [register, setRegister] = useState(false)
+  const [loginError, setLoginError] = useState('')
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -68,7 +70,6 @@ export const Login: FC<LoginProps> = ({ setToken }) => {
   const hasNoErrors = useCallback(
     (submitType: 'register' | 'login'): boolean => {
       const isEmailValid = validEmail(email)
-      console.log('submitType is ', submitType)
       if (submitType === 'register') {
         if (!name || !password || !isEmailValid) {
           setNameError(Boolean(!name))
@@ -97,9 +98,13 @@ export const Login: FC<LoginProps> = ({ setToken }) => {
 
     if (register) {
       if (hasNoErrors('register')) {
-        registerPOST(name, email, password).then((res) => {
-          setToken(res.token)
-        })
+        registerPOST(name, email, password)
+          .then((res) => {
+            setToken(res.token)
+          })
+          .catch((err) => {
+            setLoginError(err.message)
+          })
       }
     } else {
       if (hasNoErrors('login')) {
@@ -108,7 +113,7 @@ export const Login: FC<LoginProps> = ({ setToken }) => {
             setToken(res.token)
           })
           .catch((err) => {
-            console.log('catching an error', err)
+            setLoginError(err.message)
           })
       }
     }
@@ -118,6 +123,7 @@ export const Login: FC<LoginProps> = ({ setToken }) => {
       <Card maxHeight="836px" maxWidth="607px" cardWidth="100%">
         <LoginContainer>
           <Logo src={logo} alt="Logo" />
+
           <form onSubmit={handleSubmit}>
             <NameContainer show={register}>
               <TextField
@@ -141,6 +147,7 @@ export const Login: FC<LoginProps> = ({ setToken }) => {
               type="password"
               onChange={setPassword}
             />
+            {loginError && <Error>{loginError}</Error>}
             <ButtonWrap>
               <Button type="submit" btnType="primary">
                 {!register ? 'Login' : 'Register'}
