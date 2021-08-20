@@ -17,10 +17,14 @@ export const AdminDash: FC = () => {
 
   useEffect(() => {
     setProcessing(true)
-    getRobots().then((res) => {
-      setRobots(res)
-      setProcessing(false)
-    })
+    getRobots()
+      .then((res) => {
+        setRobots(res)
+        setProcessing(false)
+      })
+      .catch((err) => {
+        console.log('get error: ', err.message)
+      })
   }, [])
 
   const handleDelete = (id: string) => {
@@ -29,7 +33,7 @@ export const AdminDash: FC = () => {
         setRobots(robots.filter((robot) => robot.id !== id))
       })
       .catch((err) => {
-        console.log('Error: ', err.message)
+        console.log('Error handler: ', err.message)
       })
   }
 
@@ -43,7 +47,7 @@ export const AdminDash: FC = () => {
           setResetAdd(!resetAdd)
         })
         .catch((err) => {
-          console.log('an error occurred: ', err)
+          console.log('an error occurred: ', err.message)
         })
     }
   }

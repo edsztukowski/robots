@@ -49,21 +49,33 @@ export const VoteDashboard: FC = () => {
     setProcessing(true)
     if (myVotes.length > 0) {
       myVotes.map((vote) => {
-        return deleteVote(vote.id).then(() => {
-          const filteredVotes = myVotes.filter(
-            (myVote) => myVote.id !== vote.id
-          )
-          return votePOST(robotId).then((res) => {
-            setMyVotes([...filteredVotes, res])
-            setProcessing(false)
+        return deleteVote(vote.id)
+          .then(() => {
+            const filteredVotes = myVotes.filter(
+              (myVote) => myVote.id !== vote.id
+            )
+            return votePOST(robotId)
+              .then((res) => {
+                setMyVotes([...filteredVotes, res])
+                setProcessing(false)
+              })
+              .catch((err) => {
+                console.log('vote post err: ', err.message)
+              })
           })
-        })
+          .catch((err) => {
+            console.log('Delete vote error handler: ', err.message)
+          })
       })
     } else {
-      votePOST(robotId).then((res) => {
-        setMyVotes([res])
-        setProcessing(false)
-      })
+      votePOST(robotId)
+        .then((res) => {
+          setMyVotes([res])
+          setProcessing(false)
+        })
+        .catch((err) => {
+          console.log('Vote post err: ', err.message)
+        })
     }
   }
 

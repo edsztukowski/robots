@@ -99,10 +99,14 @@ export const Header: FC = () => {
   }, [mobileMenuOpen])
 
   const handleLogout = () => {
-    deleteSession().then(() => {
-      deleteToken()
-      window.location.reload()
-    })
+    deleteSession()
+      .then(() => {
+        deleteToken()
+        window.location.reload()
+      })
+      .catch((err) => {
+        console.log('Error handler: ', err.message)
+      })
   }
 
   return (
