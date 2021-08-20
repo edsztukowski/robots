@@ -35,7 +35,9 @@ const StyledInput = styled.input`
   font-size: 22px;
   border: none;
   width: calc(100% - 13px);
-  &:focus,
+  &:focus {
+    outline: none;
+  }
   &:focus-visible {
     outline: none;
   }
