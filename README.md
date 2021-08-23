@@ -9,7 +9,7 @@ yarn start
 
 Check me out on Heroku: http://robo-vote.herokuapp.com/
 
-## Compatibility
+## Compatibility:
 
 Developed in Chrome
 Tested on Safari and Firefox
